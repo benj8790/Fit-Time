@@ -232,7 +232,7 @@ db.Sequelize = Sequelize;
 
 
 
-/*  
+/*  //
  * Le module.exports ou exports est un objet spécial qui est inclus dans chaque fichier JS de l'application Node.js par défaut.
  * module est une variable qui représente le module actuel et les exports est un objet qui sera exposé en tant que module.
  * Ainsi, tout ce que vous attribuez à module.exports ou exports sera exposé en tant que module.
