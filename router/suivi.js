@@ -1,22 +1,18 @@
 const Express = require("express");
 const router = Express.Router();
 const db = require("../database/db");
+const { Op } = require("sequelize");
 
 
 
 router.post("/ajouter", (req, res) => {
-    db.abonnement.findOne({
-        where: { Nom: req.body.Nom },
-    });
-    db.abonnement
+    db.suivi.findOne({});
+    db.suivi
         .create({
-            Engagement: req.body.Engagement,
-            Nom: req.body.Nom,
-            Condition: req.body.Condition,
-            Seance_Offerte: req.body.Seance_Offerte,
-            TarifId: req.body.TarifId,
-            RemiseId: req.body.RemiseId,
-            UtilisateurId: req.body.UtilisateurId,
+            Objectif: req.body.Objectif,
+            Progression: req.body.Progression,
+            AdherentId: req.body.AdherentId,
+
         })
         .then((rep) => {
             res.json({ message: "ok", rep });
@@ -26,14 +22,32 @@ router.post("/ajouter", (req, res) => {
         });
 });
 
+router.get("/getById/:id", (req, res) => {
+    db.suivi
+        .findOne({
+            where: { id: req.params.id },
+            include: [{
+                    model: db.adherent,
+                },
+
+            ],
+        })
+        .then((suivi) => {
+            res.status(200).json({ suivi: suivi });
+        })
+        .catch((err) => {
+            res.json(err);
+        });
+});
+
 
 router.get("/FindAll", (req, res) => {
-    db.abonnement
-        .findAll({ include: [{ model: db.tarif }] })
-        .then((abonnement) => {
-            if (abonnement) {
+    db.suivi
+        .findAll({})
+        .then((suivi) => {
+            if (suivi) {
                 res.json({
-                    abonnement: abonnement,
+                    suivi: suivi,
                 });
             } else {
                 res.json({ error: "404 not found" });
@@ -44,29 +58,27 @@ router.get("/FindAll", (req, res) => {
         });
 });
 
-
-
-//delete abonnement
+//delete suivi
 router.delete("/delete/:id", (req, res) => {
-    //find the abonnement and delete
-    db.abonnement
+    //find the suivi and delete
+    db.suivi
         .findOne({
             where: { id: req.params.id },
         })
-        .then((abonnement) => {
-            if (abonnement) {
-                abonnement
+        .then((suivi) => {
+            if (suivi) {
+                suivi
                     .destroy()
                     .then(() => {
-                        res.json("abonnement deleted");
+                        res.json("suivi deleted");
                     })
                     .catch((err) => {
                         res.json("error" + err);
                     });
             } else {
                 res.json({
-                    error: "you can't delete this abonnement" +
-                        "it don't exist in your list of abonnement",
+                    error: "you can't delete this suivi" +
+                        "it don't exist in your list of suivi",
                 });
             }
         })
@@ -75,4 +87,8 @@ router.delete("/delete/:id", (req, res) => {
             res.json("error" + err);
         });
 });
+
+
+
+
 module.exports = router;

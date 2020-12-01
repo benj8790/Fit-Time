@@ -1,22 +1,25 @@
 const Express = require("express");
 const router = Express.Router();
 const db = require("../database/db");
+const { Op } = require("sequelize");
 
 
 
 router.post("/ajouter", (req, res) => {
-    db.abonnement.findOne({
-        where: { Nom: req.body.Nom },
-    });
-    db.abonnement
+    db.coach.findOne({});
+    db.coach
         .create({
-            Engagement: req.body.Engagement,
             Nom: req.body.Nom,
-            Condition: req.body.Condition,
-            Seance_Offerte: req.body.Seance_Offerte,
-            TarifId: req.body.TarifId,
-            RemiseId: req.body.RemiseId,
-            UtilisateurId: req.body.UtilisateurId,
+            Prenom: req.body.Prenom,
+            Adresse: req.body.Adresse,
+            Cp: req.body.Cp,
+            Tel: req.body.Tel,
+            Age: req.body.Age,
+            Anciennete: req.body.Anciennete,
+            Qualification: req.body.Qualification,
+            Poste: req.body.Poste,
+            Ville: req.body.Ville,
+            Email: req.body.Email,
         })
         .then((rep) => {
             res.json({ message: "ok", rep });
@@ -26,14 +29,13 @@ router.post("/ajouter", (req, res) => {
         });
 });
 
-
 router.get("/FindAll", (req, res) => {
-    db.abonnement
-        .findAll({ include: [{ model: db.tarif }] })
-        .then((abonnement) => {
-            if (abonnement) {
+    db.coach
+        .findAll({})
+        .then((coach) => {
+            if (coach) {
                 res.json({
-                    abonnement: abonnement,
+                    coach: coach,
                 });
             } else {
                 res.json({ error: "404 not found" });
@@ -44,29 +46,27 @@ router.get("/FindAll", (req, res) => {
         });
 });
 
-
-
-//delete abonnement
+//delete coach
 router.delete("/delete/:id", (req, res) => {
-    //find the abonnement and delete
-    db.abonnement
+    //find the coach and delete
+    db.coach
         .findOne({
             where: { id: req.params.id },
         })
-        .then((abonnement) => {
-            if (abonnement) {
-                abonnement
+        .then((coach) => {
+            if (coach) {
+                coach
                     .destroy()
                     .then(() => {
-                        res.json("abonnement deleted");
+                        res.json("coach deleted");
                     })
                     .catch((err) => {
                         res.json("error" + err);
                     });
             } else {
                 res.json({
-                    error: "you can't delete this abonnement" +
-                        "it don't exist in your list of abonnement",
+                    error: "you can't delete this coach" +
+                        "it don't exist in your list of coach",
                 });
             }
         })
@@ -75,4 +75,8 @@ router.delete("/delete/:id", (req, res) => {
             res.json("error" + err);
         });
 });
+
+
+
+
 module.exports = router;

@@ -31,7 +31,7 @@ module.exports = (dbinfo, Sequelize) => {
 
             Condition: {
 
-                type: Sequelize.DataTypes.STRING(45),
+                type: Sequelize.DataTypes.STRING(255),
                 //ça veut dire qu'on l'autorise pas à être null
                 allowNull: false
             },

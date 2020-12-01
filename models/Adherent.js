@@ -17,7 +17,7 @@ module.exports = (dbinfo, Sequelize) => {
                 autoIncrement: true,
             },
 
-            Mot_Passe: {
+            Password: {
                 //STRING c'est comme varchar
                 type: Sequelize.DataTypes.STRING(255),
                 //ça veut dire qu'on l'autorise pas à être null
@@ -66,6 +66,12 @@ module.exports = (dbinfo, Sequelize) => {
                 allowNull: false
             },
             Ville: {
+                //STRING c'est comme varchar
+                type: Sequelize.DataTypes.STRING(45),
+                //ça veut dire qu'on l'autorise pas à être null
+                allowNull: false
+            },
+            Image: {
                 //STRING c'est comme varchar
                 type: Sequelize.DataTypes.STRING(45),
                 //ça veut dire qu'on l'autorise pas à être null

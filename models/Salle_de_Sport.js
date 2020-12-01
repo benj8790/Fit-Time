@@ -20,13 +20,13 @@ module.exports = (dbinfo, Sequelize) => {
                 //INTEGER c'est comme INT
                 type: Sequelize.DataTypes.INTEGER,
                 //ça veut dire qu'on l'autorise pas à être null
-                allowNull: false
+                allowNull: true
             },
             Num_Siren: {
                 //INTEGER c'est comme INT
                 type: Sequelize.DataTypes.INTEGER,
                 //ça veut dire qu'on l'autorise pas à être null
-                allowNull: false
+                allowNull: true
             },
             Nom: {
                 //STRING c'est comme varchar
@@ -62,6 +62,11 @@ module.exports = (dbinfo, Sequelize) => {
                 type: Sequelize.DataTypes.STRING(150),
                 allowNull: false,
                 unique: true
+            },
+            Img: {
+                type: Sequelize.DataTypes.STRING(150),
+                allowNull: true,
+                unique: false
             },
 
         }, { //ça veut dire que des que tu crée un élément ça te dit la date sa

@@ -16,9 +16,21 @@ module.exports = (dbinfo, Sequelize) => {
                 //true c'est comme cocher la case false est mis par défauds
                 autoIncrement: true,
             },
+            Jour: {
+                //STRING c'est comme varchar
+                type: Sequelize.DataTypes.STRING(45),
+                //ça veut dire qu'on l'autorise pas à être null
+                allowNull: false
+            },
             Exercice: {
                 //STRING c'est comme varchar
                 type: Sequelize.DataTypes.STRING(45),
+                //ça veut dire qu'on l'autorise pas à être null
+                allowNull: false
+            },
+            Serie: {
+                //STRING c'est comme varchar
+                type: Sequelize.DataTypes.INTEGER(2),
                 //ça veut dire qu'on l'autorise pas à être null
                 allowNull: false
             },

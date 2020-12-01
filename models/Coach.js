@@ -58,8 +58,18 @@ module.exports = (dbinfo, Sequelize) => {
                 allowNull: false,
                 unique: true
             },
-            Salaire: {
-                type: Sequelize.DataTypes.DECIMAL(6, 2),
+            Age: {
+                type: Sequelize.DataTypes.INTEGER(2),
+                allowNull: false,
+                unique: true
+            },
+            Anciennete: {
+                type: Sequelize.DataTypes.STRING(20),
+                allowNull: false,
+                unique: true
+            },
+            Image: {
+                type: Sequelize.DataTypes.STRING(45),
                 allowNull: false,
                 unique: true
             },

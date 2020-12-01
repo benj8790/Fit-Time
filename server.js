@@ -65,9 +65,15 @@ app.use(bodyparser.urlencoded({ extended: false }));
 //un prefix est mot (quelque chose) qui viens avant le nom de notre route*/
 
 //c'est pour que ton server sache ou trouver t'es route 
-app.use("/societe", require("./router/societe"));
 app.use("/abonnement", require("./router/abonnement"));
 app.use("/tarif", require("./router/tarif"));
+app.use("/salle_de_sport", require("./router/salle_de_sport"));
+app.use("/equipement", require("./router/equipement"));
+app.use("/annonce", require("./router/annonce"));
+app.use("/adherent", require("./router/adherent"));
+app.use("/coach", require("./router/coach"));
+app.use("/suivi", require("./router/suivi"));
+app.use("/programme", require("./router/programme"));
 
 
 
