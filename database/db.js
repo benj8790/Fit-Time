@@ -32,7 +32,7 @@ de new à pool c'est une instance*/
 const dbinfo = new Sequelize("fittime", "root", "", {
     host: "localhost",
     dialect: "mysql",
-    port: 3308,
+    port: 3306,
     pool: {
         max: 5,
         min: 0,

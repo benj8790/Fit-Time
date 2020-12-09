@@ -37,6 +37,8 @@ Cross-Origin Resource Sharing
 /* Pour utiliser CORS il faut envoyer au serveur des en-têtes de contrôle d'accès qu'il inspectera pour approuver ou non la requête.
  Ces en-têtes de contrôle d'accès décriront le contexte de la requête, sa méthode HTTP, son origine, ses en-têtes personnalisés, ... */
 const cors = require("cors");
+const fileUpload = require('express-fileupload');
+
 
 
 
@@ -49,6 +51,12 @@ const port = 3000;
 //ça veut dire que app = express
 const app = express();
 
+
+
+
+app.use(express.static('public')); //to access the files in public folder
+app.use(fileUpload());
+
 app.use(cors());
 
 
@@ -57,6 +65,26 @@ app.use(bodyparser.json());
 
 //il vas encoder t'es données dans ton url
 app.use(bodyparser.urlencoded({ extended: false }));
+
+
+app.post('/upload', (req, res) => {
+
+    if (!req.files) {
+        return res.status(500).send({ msg: "file is not found" })
+    }
+    // accessing the file
+    const myFile = req.files.file;
+
+    //  mv() method places the file inside public directory
+    myFile.mv(`${__dirname}/public/${myFile.name}`, function(err) {
+        if (err) {
+            console.log(err)
+            return res.status(500).send({ msg: "Error occured" });
+        }
+        // returing the response with file path and name
+        return res.send({ name: myFile.name, path: `/${myFile.name}` });
+    });
+})
 
 
 // Nous allons alors prefix pour nos itinéraires

@@ -144,6 +144,7 @@ router.put("/update/:Id", (req, res) => {
                 adherent
                     .update(adhe)
                     .then((adherentitem) => {
+
                         db.adherent
                             .findOne({
                                 where: { Id: id },

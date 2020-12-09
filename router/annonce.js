@@ -46,6 +46,35 @@ router.get("/FindAll", (req, res) => {
         });
 });
 
+router.get("/FindLimit", (req, res) => {
+    db.annonce
+        .findAll({
+
+            where: {
+                id: {
+                    [Op.lte]: 3
+                }
+            },
+
+            include: [{
+                model: db.adherent,
+            }, ],
+
+        })
+        .then((annonce) => {
+            if (annonce) {
+                res.json({
+                    annonce: annonce,
+                });
+            } else {
+                res.json({ error: "404 not found" });
+            }
+        })
+        .catch((err) => {
+            res.json("error" + err);
+        });
+});
+
 router.get("/getById/:id", (req, res) => {
 
     db.annonce.findAll({
