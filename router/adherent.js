@@ -123,6 +123,7 @@ router.post("/login", (req, res) => {
 });
 
 router.put("/update/:Id", (req, res) => {
+    console.log(req.body);
     var id = req.params.Id;
     var adhe = {
         Password: req.body.Password,
@@ -131,6 +132,7 @@ router.put("/update/:Id", (req, res) => {
         Cp: req.body.Cp,
         Ville: req.body.Ville,
         Tel: req.body.Tel,
+        Image: req.body.Image,
     };
 
     db.adherent
@@ -144,7 +146,6 @@ router.put("/update/:Id", (req, res) => {
                 adherent
                     .update(adhe)
                     .then((adherentitem) => {
-
                         db.adherent
                             .findOne({
                                 where: { Id: id },

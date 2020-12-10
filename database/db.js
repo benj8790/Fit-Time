@@ -29,7 +29,7 @@ le "Fit-Time" c'est le nom de la base de données
 et "" c'est le password y'en à pas sur window 
 c'est pour ce connecter à la base de données mysql
 de new à pool c'est une instance*/
-const dbinfo = new Sequelize("fittime", "root", "", {
+const dbinfo = new Sequelize("fittime", "root", "root", {
     host: "localhost",
     dialect: "mysql",
     port: 3306,
