@@ -160,12 +160,12 @@ router.put("/update/:Id", (req, res) => {
                                 res.status(200).json({ token: token });
                             })
                             .catch((err) => {
-                                res.status(402).send(err + "bad request");
+                                res.status(401).send(err + "bad request");
                             });
                     })
                     .catch((err) => {
                         res
-                            .status(402)
+                            .status(401)
                             .send("impossible de mettre à jour l'adherent" + err);
                     });
             } else {
@@ -190,6 +190,7 @@ router.get("/getById/:id", (req, res) => {
                 {
                     model: db.programme,
                 },
+
             ],
         })
         .then((adherent) => {

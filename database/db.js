@@ -29,7 +29,7 @@ le "Fit-Time" c'est le nom de la base de données
 et "" c'est le password y'en à pas sur window 
 c'est pour ce connecter à la base de données mysql
 de new à pool c'est une instance*/
-const dbinfo = new Sequelize("fittime", "root", "root", {
+const dbinfo = new Sequelize("fittime", "root", "", {
     host: "localhost",
     dialect: "mysql",
     port: 3306,
@@ -65,10 +65,7 @@ db.annonce = require("../models/Annonce")(dbinfo, Sequelize);
 db.avis = require("../models/Avis")(dbinfo, Sequelize);
 db.borne = require("../models/Borne")(dbinfo, Sequelize);
 db.coach_categorie = require("../models/Coach_categorie")(dbinfo, Sequelize);
-db.coach_sous_categorie = require("../models/Coach_sous_categorie")(
-    dbinfo,
-    Sequelize
-);
+db.coach_sous_categorie = require("../models/Coach_sous_categorie")(dbinfo, Sequelize);
 db.coach = require("../models/Coach")(dbinfo, Sequelize);
 db.commande_coach = require("../models/Commande_coach")(dbinfo, Sequelize);
 db.cours_collectif = require("../models/Cours_collectif")(dbinfo, Sequelize);
@@ -147,6 +144,10 @@ db.coach.hasMany(db.cours_en_ligne, { foreignKey: "coachId" });
 db.coach.hasMany(db.adherent, { foreignKey: "CoachId" });
 db.adherent.belongsTo(db.coach, { foreignKey: "CoachId" });
 db.abonnement.hasMany(db.adherent, { foreignKey: "AbonnementId" });
+
+//relation Annonce 1 N
+db.adherent.hasMany(db.annonce, { foreignKey: "AdherentId" });
+db.annonce.belongsTo(db.adherent, { foreignKey: "AdherentId" });
 
 //relation Reponse 1 N
 db.adherent.hasMany(db.reponse, { foreignKey: "AdherentId" });
@@ -255,10 +256,10 @@ db.adherent.belongsToMany(db.annonce, {
     through: "Publier",
     foreignKey: "AdherentId",
 });
-db.annonce.belongsToMany(db.adherent, {
+/* db.annonce.belongsToMany(db.adherent, {
     through: "Publier",
     foreignKey: "AnnonceId",
-});
+}); */
 
 db.cours_en_ligne.belongsToMany(db.inscription, {
     through: "Affecter",

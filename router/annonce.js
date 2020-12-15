@@ -49,12 +49,12 @@ router.get("/FindAll", (req, res) => {
 router.get("/FindLimit", (req, res) => {
     db.annonce
         .findAll({
+            order: [
+                [
+                    ['createdAt', 'desc'],
+                ]
+            ],
 
-            where: {
-                id: {
-                    [Op.lte]: 3
-                }
-            },
 
             include: [{
                 model: db.adherent,
@@ -79,7 +79,7 @@ router.get("/getById/:id", (req, res) => {
 
     db.annonce.findAll({
             where: { id: req.params.id },
-            include: [{ model: db.equipement }],
+            include: [{ model: db.adherent }],
         })
         .then(annonce => {
             res.status(200).json({ annonce: annonce })
